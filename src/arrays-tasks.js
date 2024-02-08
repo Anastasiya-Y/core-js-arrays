@@ -44,8 +44,26 @@ function getIntervalArray(start, end) {
  *    sumArrays([10, 20, 30], [5, 10, 15]) => [15, 30, 45]
  *    sumArrays([-1, 0, 1], [1, 2, 3, 4]) => [0, 2, 4, 4]
  */
-function sumArrays(/* arr1, arr2 */) {
-  throw new Error('Not implemented');
+function sumArrays(arr1, arr2) {
+  let arrFirst;
+  let arrSecond;
+
+  if (arr1.length >= arr2.length) {
+    arrFirst = arr1;
+    arrSecond = arr2;
+  } else {
+    arrFirst = arr2;
+    arrSecond = arr1;
+  }
+
+  const result = arrFirst.map((item, index) => {
+    if (arrSecond[index]) {
+      return item + arrSecond[index];
+    }
+    return item;
+  });
+
+  return result;
 }
 
 /**
@@ -276,8 +294,17 @@ function distinct(arr) {
  *    createNDimensionalArray(4, 2) => [[[[0, 0], [0, 0]], [[0, 0], [0, 0]]], [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]]
  *    createNDimensionalArray(1, 1) => [0]
  */
-function createNDimensionalArray(/* n, size */) {
-  throw new Error('Not implemented');
+function createNDimensionalArray(n, size) {
+  let arr = [];
+  if (n === 1) {
+    arr = new Array(size).fill(0);
+
+    return arr;
+  }
+
+  arr = new Array(size).fill(createNDimensionalArray(n - 1, size));
+
+  return arr;
 }
 
 /**
@@ -308,8 +335,8 @@ function flattenArray(nestedArray) {
  *   selectMany([[1, 2], [3, 4], [5, 6]], (x) => x) =>   [ 1, 2, 3, 4, 5, 6 ]
  *   selectMany(['one','two','three'], (x) => x.split('')) =>   ['o','n','e','t','w','o','t','h','r','e','e']
  */
-function selectMany(/* arr, childrenSelector */) {
-  throw new Error('Not implemented');
+function selectMany(arr, childrenSelector) {
+  return arr.flatMap(childrenSelector);
 }
 
 /**
@@ -437,8 +464,17 @@ function getIdentityMatrix(/* n */) {
  *    getIndicesOfOddNumbers([2, 4, 6, 8, 10]) => []
  *    getIndicesOfOddNumbers([11, 22, 33, 44, 55]) => [0, 2, 4]
  */
-function getIndicesOfOddNumbers(/* numbers */) {
-  throw new Error('Not implemented');
+function getIndicesOfOddNumbers(numbers) {
+  const result = [];
+
+  numbers.filter((item, index) => {
+    if (item % 2 !== 0) {
+      result.push(index);
+    }
+    return false;
+  });
+
+  return result;
 }
 
 /**
@@ -471,8 +507,8 @@ function getHexRGBValues(arr) {
  *   getMaxItems([ 10, 2, 7, 5, 3, -5 ], 3) => [ 10, 7, 5 ]
  *   getMaxItems([ 10, 10, 10, 10 ], 3) => [ 10, 10, 10 ]
  */
-function getMaxItems(/* arr, n */) {
-  throw new Error('Not implemented');
+function getMaxItems(arr, n) {
+  return arr.sort((a, b) => b - a).slice(0, n);
 }
 
 /**
