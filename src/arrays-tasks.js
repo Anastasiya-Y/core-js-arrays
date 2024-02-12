@@ -370,8 +370,21 @@ function calculateBalance(arr) {
  *    createChunks(['a', 'b', 'c', 'd', 'e'], 2) => [['a', 'b'], ['c', 'd'], ['e']]
  *    createChunks([10, 20, 30, 40, 50], 1) => [[10], [20], [30], [40], [50]]
  */
-function createChunks(/* arr, chunkSize */) {
-  throw new Error('Not implemented');
+function createChunks(arr, chunkSize) {
+  let chunk = [];
+  const result = [];
+
+  arr.map((item) => {
+    if (chunk.length === chunkSize) {
+      result.push(chunk);
+      chunk = [];
+    }
+    return chunk.push(item);
+  });
+
+  result.push(chunk);
+
+  return result;
 }
 
 /**
@@ -449,8 +462,24 @@ function getFalsyValuesCount(arr) {
  *                              [0,0,0,1,0],
  *                              [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const template = new Array(n).fill();
+
+  const matrix = template.map(() => {
+    return new Array(n).fill(0);
+  });
+
+  let counter = 0;
+
+  matrix.map((item) => {
+    const arrElem = item;
+    arrElem[counter] = 1;
+    counter += 1;
+
+    return item;
+  });
+
+  return matrix;
 }
 
 /**
@@ -548,8 +577,24 @@ function findCommonElements(arr1, arr2) {
  *    findLongestIncreasingSubsequence([3, 10, 2, 1, 20]) => 2
  *    findLongestIncreasingSubsequence([50, 3, 10, 7, 40, 80]) => 3
  */
-function findLongestIncreasingSubsequence(/* nums */) {
-  throw new Error('Not implemented');
+function findLongestIncreasingSubsequence(nums) {
+  const results = [];
+  let subsequence = 1;
+
+  nums.map((item, index) => {
+    if (item < nums[index + 1]) {
+      subsequence += 1;
+    } else {
+      results.push(subsequence);
+      subsequence = 1;
+    }
+
+    return item;
+  });
+
+  results.sort((a, b) => b - a);
+
+  return results[0];
 }
 
 /**
@@ -566,8 +611,19 @@ function findLongestIncreasingSubsequence(/* nums */) {
  *  propagateItemsByPositionIndex([ 'a', 'b', 'c', null ]) => [ 'a', 'b', 'b', 'c', 'c', 'c',  null, null, null, null ]
  *  propagateItemsByPositionIndex([ 1,2,3,4,5 ]) => [ 1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const result = [];
+
+  arr.map((item, index) => {
+    const itemArr = Array.from({ length: index + 1 }).fill(item);
+
+    result.push(itemArr);
+    return item;
+  });
+
+  const res = result.flat();
+
+  return res;
 }
 
 /**
@@ -583,8 +639,17 @@ function propagateItemsByPositionIndex(/* arr */) {
  *    shiftArray(['a', 'b', 'c', 'd'], -1) => ['b', 'c', 'd', 'a']
  *    shiftArray([10, 20, 30, 40, 50], -3) => [40, 50, 10, 20, 30]
  */
-function shiftArray(/* arr, n */) {
-  throw new Error('Not implemented');
+function shiftArray(arr, n) {
+  let result = [];
+  const index = Math.abs(n);
+
+  if (n > 0) {
+    result = arr.slice(index + 1, arr.length).concat(arr.slice(0, index + 1));
+  } else {
+    result = arr.slice(index, arr.length).concat(arr.slice(0, index));
+  }
+
+  return result;
 }
 
 /**
@@ -600,8 +665,23 @@ function shiftArray(/* arr, n */) {
  *   sortDigitNamesByNumericOrder([ 'nine','eight','nine','eight' ]) => [ 'eight','eight','nine','nine']
  *   sortDigitNamesByNumericOrder([ 'one','one','one','zero' ]) => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const numbers = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+  ];
+
+  const result = arr.sort((a, b) => numbers.indexOf(a) - numbers.indexOf(b));
+
+  return result;
 }
 
 /**
@@ -623,8 +703,30 @@ function sortDigitNamesByNumericOrder(/* arr */) {
  *   swapHeadAndTail([]) => []
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  let result;
+  let head = [];
+  let tail = [];
+  const index = Math.floor(arr.length / 2);
+
+  if (arr.length % 2 === 0) {
+    head = arr.slice(0, index);
+    tail = arr.slice(index, arr.length);
+
+    result = tail.concat(head);
+  } else {
+    head = arr.slice(0, index);
+    tail = arr.slice(index + 1, arr.length);
+    tail.push(arr[index]);
+
+    result = tail.concat(head);
+  }
+
+  return result;
 }
 
 module.exports = {
